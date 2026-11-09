@@ -1,0 +1,7 @@
+DAILY TRACK - APP VERSION
+1. Upload ALL files in this folder to your GitHub repo "dailytrack" (replace old ones).
+   index.html must be the app file name (delete the old DailyTrack.html or keep it, but share the main link).
+2. Wait ~1 minute, open https://kishan13091996.github.io/dailytrack/ on your phone.
+3. Android (Chrome): Settings > Install app, or menu > Install app.
+   iPhone (Safari): Share > Add to Home Screen.
+4. Open from the home-screen icon: full screen, works offline.
