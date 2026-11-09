@@ -232,6 +232,74 @@ body.locked .hero,body.locked .nav,body.locked main{display:none}
   .ibtn{width:42px;height:42px}
 }
 
+/* notes */
+.gearbtn{}
+.backbtn{display:inline-flex;align-items:center;gap:2px;border:0;background:var(--fill);color:var(--primary);font-weight:700;padding:8px 14px 8px 8px;border-radius:999px;margin-bottom:6px}
+.sect{margin:20px 4px 10px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.tpl{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;background:var(--card);border:2px solid var(--sep);border-radius:22px;padding:14px 8px;box-shadow:var(--shadow);transition:all .2s;color:var(--text)}
+.tpl:active{transform:scale(.97)}
+.tpl-ico{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:25px;background:color-mix(in srgb,var(--tc) 16%,transparent)}
+.tpl b{font-size:13.5px;line-height:1.2}.tpl small{font-size:11px;color:var(--muted);line-height:1.25}
+.tpl.on{border-color:var(--tc);box-shadow:0 10px 26px color-mix(in srgb,var(--tc) 30%,transparent);transform:translateY(-2px)}
+.nform-card{margin-bottom:14px;border-top:4px solid var(--tc)}
+.nform-card h3{display:flex;align-items:center;gap:10px}
+.fgrid textarea.inp{height:auto;min-height:92px;resize:vertical;line-height:1.4}
+.nh{display:flex;align-items:center;gap:10px;margin:0 0 10px!important;font-size:16px!important;justify-content:flex-start!important}
+.nh-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--tc) 16%,transparent);font-size:18px}
+.nh em{font-style:normal;font-size:12px;font-weight:700;background:var(--fill);color:var(--muted);padding:2px 9px;border-radius:999px;margin-left:auto}
+.nsect{margin-bottom:14px}
+.tw{overflow-x:auto}
+.ntbl{width:100%;border-collapse:collapse}
+.ntbl th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--sep);font-weight:700;white-space:nowrap}
+.ntbl td{padding:12px 8px;border-bottom:1px solid var(--sep);vertical-align:middle}
+.ntbl tr:last-child td{border-bottom:0}
+.ntbl .c-n{width:44px;color:var(--muted);font-weight:700}
+.ntbl .nm{font-weight:700}.ntbl .amt{font-weight:800;white-space:nowrap}
+.ntbl .cm{color:var(--muted);max-width:240px;word-break:break-word}
+.ntbl .acts{text-align:right;white-space:nowrap}
+.ntbl tr.done td:not(.acts){opacity:.55}
+.ntbl tr.done .nm{text-decoration:line-through}
+.ibtn{width:38px;height:38px;border-radius:12px;border:0;display:inline-grid;place-items:center;background:var(--fill);color:var(--primary);margin-left:6px}
+.ibtn.ok{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent)}
+.ibtn.del{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent)}
+.ibtn:active{transform:scale(.92)}
+.npill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--fill);color:var(--muted);white-space:nowrap}
+.npill.ok{background:color-mix(in srgb,var(--green) 18%,transparent);color:#1f9d55}
+.npill.warn{background:color-mix(in srgb,var(--orange) 20%,transparent);color:#b36a00}
+.npill.bad{background:color-mix(in srgb,var(--red) 15%,transparent);color:var(--red)}
+@media(max-width:700px){
+  .ntbl thead{display:none}.ntbl,.ntbl tbody{display:block}
+  .ntbl tr{display:block;background:var(--fill);border-radius:16px;padding:10px 14px;margin-bottom:10px}
+  .ntbl td{display:flex;justify-content:space-between;align-items:center;gap:14px;border:0;padding:5px 0;text-align:right}
+  .ntbl td::before{content:attr(data-label);color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;flex:none;text-align:left}
+  .ntbl .c-n{display:none}
+  .ntbl .nm{font-size:17px;padding-bottom:6px}
+  .ntbl .cm{max-width:none}
+  .ntbl td.acts{justify-content:flex-end;padding-top:8px;margin-top:4px;border-top:1px solid var(--sep)}
+  .ntbl td.acts::before{display:none}
+  .ibtn{width:44px;height:44px}
+}
+/* dashboard notes */
+.nsec{margin:6px 0 18px;border-radius:26px;padding:16px 0 14px;color:#fff;background:linear-gradient(135deg,#241d5a,var(--primary) 68%,#ff5fa2);box-shadow:0 14px 34px color-mix(in srgb,var(--primary) 35%,transparent);position:relative;overflow:hidden}
+.nsec::after{content:"";position:absolute;right:-50px;top:-60px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.1)}
+.nhead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 16px;position:relative;z-index:1}
+.nhead h3{margin:0;font-size:19px;font-weight:800;letter-spacing:-.3px}
+.nhead span{font-size:12.5px;opacity:.8}
+.nhead button{border:0;color:#fff;background:rgba(255,255,255,.22);padding:8px 13px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap}
+.nstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 16px 4px;position:relative;z-index:1}
+.nstat{background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:16px;padding:10px}
+.nstat small{display:block;font-size:11px;opacity:.85;font-weight:600}.nstat b{font-size:16px;letter-spacing:-.3px;word-break:break-word}
+.nscroll{display:flex;gap:10px;overflow-x:auto;padding:10px 16px 6px;scroll-snap-type:x proximity;scrollbar-width:none;position:relative;z-index:1}
+.nscroll::-webkit-scrollbar{display:none}
+.ncard{flex:none;width:210px;scroll-snap-align:start;text-align:left;background:var(--card);color:var(--text);border:0;border-left:5px solid var(--tc);border-radius:18px;padding:12px 13px;display:flex;flex-direction:column;gap:3px;box-shadow:0 8px 20px rgba(0,0,0,.2);font:inherit}
+.ncard .t{font-size:11px;font-weight:700;color:var(--tc);text-transform:uppercase;letter-spacing:.05em}
+.ncard b{font-size:15.5px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ncard .a{font-size:19px;font-weight:800;letter-spacing:-.4px}
+.ncard p{margin:0;color:var(--muted);font-size:12.5px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.nempty{padding:8px 16px 4px;position:relative;z-index:1;opacity:.92}
+.nempty button{margin-top:10px;border:0;background:#fff;color:var(--primary);font-weight:800;padding:11px 18px;border-radius:14px}
+@media(min-width:700px){.ncard{width:240px}}
 /* toast + modal */
 #toast{position:fixed;left:50%;bottom:max(26px,env(safe-area-inset-bottom));transform:translate(-50%,30px);background:rgba(28,28,30,.92);color:#fff;padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:all .3s;z-index:400;max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
@@ -257,7 +325,7 @@ body.locked .hero,body.locked .nav,body.locked main{display:none}
 <header class="hero">
   <div class="hero-in">
     <div><div class="hello" id="hello"></div><h1>Daily Track</h1></div>
-    <div class="row" style="gap:10px"><div class="datechip" id="datechip"></div><button class="lockbtn" id="lockbtn" aria-label="Lock app" title="Lock app"></button></div>
+    <div class="row" style="gap:10px"><div class="datechip" id="datechip"></div><button class="lockbtn" id="gearbtn" aria-label="Settings" title="Settings"></button><button class="lockbtn" id="lockbtn" aria-label="Lock app" title="Lock app"></button></div>
   </div>
 </header>
 <nav class="nav" id="nav" aria-label="Main menu"></nav>
@@ -298,6 +366,7 @@ const ICON={
   dl:svg('<path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/>',19,2.3),
   lock:svg('<rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.2"/>',22),
   eye:svg('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',20),
+  notes:svg('<path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M8.5 12.5h7M8.5 16.5h5"/>',24),
   edit:svg('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',18)
 };
 
@@ -313,7 +382,8 @@ const DEFAULT={
     {id:'h5',name:'Meditate',emoji:'🧘'}
   ],
   logs:{},   // {date:{habitId:true}}
-  fin:{}     // {date:[{id,title,note,amt,type:'e'|'i'}]}
+  fin:{},    // {date:[{id,title,note,amt,type:'e'|'i'}]}
+  notes:[]   // [{id,type:'lent'|'pay'|'general',done,createdAt,...}]
 };
 const clone=o=>JSON.parse(JSON.stringify(o));
 function load(){
@@ -321,16 +391,17 @@ function load(){
   catch(e){return clone(DEFAULT)}
 }
 let S=load();
+if(!Array.isArray(S.notes))S.notes=[];
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const t0=todayStr();
-const ui={tab:'dashboard',hDate:t0,fDate:t0,
+const ui={tab:'dashboard',hDate:t0,fDate:t0,nType:null,nEdit:null,
   R:{type:'both',mode:'custom',from:addDays(t0,-6),to:t0,month:t0.slice(0,7)}};
 const TABS=[
   {id:'dashboard',label:'Dashboard',icon:ICON.dash},
   {id:'habits',label:'Habits',icon:ICON.habit},
   {id:'finance',label:'Finance',icon:ICON.money},
   {id:'reports',label:'Reports',icon:ICON.report},
-  {id:'settings',label:'Settings',icon:ICON.gear}
+  {id:'notes',label:'Notes',icon:ICON.notes}
 ];
 const locale=()=>S.currency==='₹'?'en-IN':'en-US';
 const money=(n,dec=true)=>S.currency+Number(n||0).toLocaleString(locale(),{minimumFractionDigits:0,maximumFractionDigits:dec?2:0});
@@ -382,7 +453,7 @@ function go(tab){
   renderNav();renderView();window.scrollTo({top:0})
 }
 function renderView(){
-  const v={dashboard:viewDash,habits:viewHabits,finance:viewFinance,reports:viewReports,settings:viewSettings}[ui.tab];
+  const v={dashboard:viewDash,habits:viewHabits,finance:viewFinance,reports:viewReports,notes:viewNotes,settings:viewSettings}[ui.tab];
   $('#view').innerHTML=`<div class="page">${v()}</div>`;
   if(ui.tab==='reports')renderReportPreview();
 }
@@ -445,6 +516,7 @@ function viewDash(){
   const sp=mi>0?Math.min(999,Math.round(mex/mi*100)):0;
   return `
   <div class="title">Dashboard</div><p class="sub">${fmtLong(t0)}</p>
+  ${notesDash()}
   <div class="grid">
     <div class="card">
       <h3>Today's habits <a data-act="go" data-tab="habits">Open</a></h3>
@@ -798,11 +870,122 @@ function makePDF(){
   toast('PDF downloaded ✓');
 }
 
+/* ================= Notes ================= */
+const NT={
+  lent:{label:'Money Given',sub:'Someone took money from me',emoji:'🤝',color:'#0A84FF',title:'Money Given · To Collect'},
+  pay:{label:'Money to Pay',sub:'EMI, loan or dues',emoji:'💳',color:'#FF9500',title:'Money to Pay · EMI / Loans'},
+  general:{label:'Life Note',sub:'Important things to remember',emoji:'📝',color:'#34C759',title:'Life Notes'}
+};
+const NOTE_CATS=[['Documents','📄'],['Health','🩺'],['Family','👨‍👩‍👧'],['Work','💼'],['Shopping','🛒'],['Ideas','💡'],['Other','📌']];
+const PAY_KINDS=['EMI','Loan','Credit card','Bill / Rent','Borrowed money','Other'];
+const notesOf=t=>S.notes.filter(n=>n.type===t);
+const daysTo=d=>Math.round((parse(d)-parse(todayStr()))/86400000);
+function dueInfo(n){
+  if(n.done)return{txt:n.type==='lent'?'Returned':n.type==='pay'?'Paid':'Done',cls:'ok'};
+  if(!n.due)return{txt:'Pending',cls:''};
+  const d=daysTo(n.due);
+  if(d<0)return{txt:`Overdue ${-d}d`,cls:'bad'};
+  if(d===0)return{txt:'Due today',cls:'warn'};
+  if(d<=3)return{txt:`Due in ${d}d`,cls:'warn'};
+  return{txt:`In ${d} days`,cls:''};
+}
+function noteTotals(){
+  let c=0,p=0,o=0;
+  S.notes.forEach(n=>{if(n.done||n.type==='general')return;const a=+n.amount||0;n.type==='lent'?c+=a:p+=a;if(n.due&&n.due<todayStr())o++});
+  return{c,p,o};
+}
+const sortNotes=l=>[...l].sort((a,b)=>((+!!a.done)-(+!!b.done))||((a.due||'9999-99-99').localeCompare(b.due||'9999-99-99'))||((b.createdAt||0)-(a.createdAt||0)));
+const noteTitle=n=>n.type==='general'?n.title:n.name;
+
+function viewNotes(){
+  const T=noteTotals();
+  return `<div class="title">Notes</div><p class="sub">Track money given, dues and important things to remember.</p>
+  <div class="card" style="margin-bottom:6px"><div class="tiles">
+    <div class="tile g"><small>To collect</small><b>${money(T.c)}</b></div>
+    <div class="tile r"><small>To pay</small><b>${money(T.p)}</b></div>
+    <div class="tile p"><small>Overdue</small><b>${T.o}</b></div></div></div>
+  <div class="sect">Choose a template</div>
+  <div class="tpl-grid">${Object.entries(NT).map(([k,t])=>`<button class="tpl ${ui.nType===k?'on':''}" data-act="ntpl" data-v="${k}" style="--tc:${t.color}" aria-pressed="${ui.nType===k}"><span class="tpl-ico">${t.emoji}</span><b>${t.label}</b><small>${t.sub}</small></button>`).join('')}</div>
+  <div id="nform">${noteForm()}</div>
+  <div id="ntables">${noteTables()}</div>`;
+}
+function noteForm(){
+  const t=ui.nType;if(!t)return '';
+  const e=ui.nEdit?S.notes.find(n=>n.id===ui.nEdit):null,v=e||{},m=NT[t];
+  const f=(id,label,html,full)=>`<div class="${full?'full':''}"><label class="lbl" for="nf-${id}">${label}</label>${html}</div>`;
+  const inp=(id,type,val,ph,extra='')=>`<input class="inp" id="nf-${id}" data-nf="${id}" type="${type}" value="${esc(val??'')}" placeholder="${esc(ph||'')}" ${extra}>`;
+  const sel=(id,list,val)=>`<select class="inp" id="nf-${id}" data-nf="${id}">${list.map(x=>{const o=Array.isArray(x)?x[0]:x;return `<option value="${esc(o)}" ${val===o?'selected':''}>${Array.isArray(x)?x[1]+' ':''}${esc(o)}</option>`}).join('')}</select>`;
+  const num='inputmode="decimal" step="0.01" min="0"';
+  let h='';
+  if(t==='lent')h=f('name','Person name *',inp('name','text',v.name,'Who took the money?','maxlength="60" autocomplete="off"'))
+    +f('amount','Amount *',inp('amount','number',v.amount,'0.00',num))
+    +f('date','Amount given on',inp('date','date',v.date||todayStr()))
+    +f('due','Expected return date',inp('due','date',v.due))
+    +f('comment','Comments',inp('comment','text',v.comment,'Optional note','maxlength="200"'),1);
+  else if(t==='pay')h=f('name','Pay to / loan name *',inp('name','text',v.name,'e.g. HDFC Home Loan','maxlength="60" autocomplete="off"'))
+    +f('kind','Type',sel('kind',PAY_KINDS,v.kind||'EMI'))
+    +f('amount','Amount (EMI / due) *',inp('amount','number',v.amount,'0.00',num))
+    +f('due','Due date',inp('due','date',v.due))
+    +f('comment','Comments',inp('comment','text',v.comment,'Optional note','maxlength="200"'),1);
+  else h=f('title','Title *',inp('title','text',v.title,'e.g. Passport renewal','maxlength="80" autocomplete="off"'))
+    +f('cat','Category',sel('cat',NOTE_CATS,v.cat||'Documents'))
+    +f('text','Note',`<textarea class="inp" id="nf-text" data-nf="text" rows="3" maxlength="800" placeholder="Write the details…">${esc(v.text||'')}</textarea>`,1)
+    +f('due','Reminder date (optional)',inp('due','date',v.due));
+  return `<div class="card nform-card" style="--tc:${m.color}"><h3>${m.emoji} ${e?'Edit':'New'} · ${m.label}</h3>
+  <form id="nfrm" class="ffrm" autocomplete="off" novalidate><div class="fgrid">${h}</div>
+  <div class="row"><button class="btn" type="submit" style="flex:1;padding:15px">${e?'Save changes':'+ Add to notes'}</button><button class="btn ghost" type="button" data-act="ncancel" style="padding:15px">Cancel</button></div></form></div>`;
+}
+function saveNote(){
+  const t=ui.nType;if(!t)return;
+  const g={};$$('[data-nf]').forEach(el=>g[el.dataset.nf]=el.value.trim());
+  const amt=parseFloat(g.amount);
+  if(t!=='general'){
+    if(!g.name){toast('Please enter the name');$('#nf-name').focus();return}
+    if(!(amt>0)){toast('Enter an amount greater than 0');$('#nf-amount').focus();return}
+    if(g.date&&g.due&&g.due<g.date){toast('Return date cannot be before the given date');return}
+  }else if(!g.title){toast('Please enter a title');$('#nf-title').focus();return}
+  const base=t==='lent'?{name:g.name,amount:amt,date:g.date||'',due:g.due||'',comment:g.comment||''}
+    :t==='pay'?{name:g.name,kind:g.kind,amount:amt,due:g.due||'',comment:g.comment||''}
+    :{title:g.title,cat:g.cat,text:g.text||'',due:g.due||''};
+  const e=ui.nEdit?S.notes.find(n=>n.id===ui.nEdit):null;
+  if(e)Object.assign(e,base);else S.notes.push(Object.assign({id:uid(),type:t,done:false,createdAt:Date.now()},base));
+  save();toast(e?'Note updated ✓':'Note added ✓');
+  ui.nType=null;ui.nEdit=null;renderView();
+}
+const nActs=n=>`<button class="ibtn ok" data-act="ndone" data-id="${n.id}" aria-label="${n.done?'Mark as pending':'Mark as done'}" title="${n.done?'Mark as pending':'Mark as done'}">${ICON.check}</button><button class="ibtn" data-act="nedit" data-id="${n.id}" aria-label="Edit">${ICON.edit}</button><button class="ibtn del" data-act="ndel" data-id="${n.id}" aria-label="Delete">${ICON.trash}</button>`;
+function nSection(t,cols,rowFn){
+  const list=t==='general'?[...notesOf(t)].sort((a,b)=>((+!!a.done)-(+!!b.done))||((b.createdAt||0)-(a.createdAt||0))):sortNotes(notesOf(t));
+  if(!list.length)return '';
+  return `<div class="card nsect"><h3 class="nh" style="--tc:${NT[t].color}"><span class="nh-ico">${NT[t].emoji}</span>${NT[t].title}<em>${list.length}</em></h3>
+  <div class="tw"><table class="ntbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${list.map(rowFn).join('')}</tbody></table></div></div>`;
+}
+function noteTables(){
+  if(!S.notes.length)return `<div class="card"><div class="empty"><b>No notes yet</b>Pick a template above, fill the form and your entries will appear here.</div></div>`;
+  const st=n=>{const d=dueInfo(n);return `<span class="npill ${d.cls}">${d.txt}</span>`};
+  return nSection('lent',['S.No','Name','Amount','Given on','Expected return','Status','Comments',''],(n,i)=>`<tr class="${n.done?'done':''}"><td class="c-n">${i+1}</td><td class="nm" data-label="Name">${esc(n.name)}</td><td class="amt" data-label="Amount">${money(n.amount)}</td><td data-label="Given on">${n.date?fmtD(n.date):'—'}</td><td data-label="Expected return">${n.due?fmtD(n.due):'—'}</td><td data-label="Status">${st(n)}</td><td class="cm" data-label="Comments">${esc(n.comment)||'—'}</td><td class="acts">${nActs(n)}</td></tr>`)
+  +nSection('pay',['S.No','Pay to','Type','Amount','Due date','Status','Comments',''],(n,i)=>`<tr class="${n.done?'done':''}"><td class="c-n">${i+1}</td><td class="nm" data-label="Pay to">${esc(n.name)}</td><td data-label="Type">${esc(n.kind||'—')}</td><td class="amt" data-label="Amount">${money(n.amount)}</td><td data-label="Due date">${n.due?fmtD(n.due):'—'}</td><td data-label="Status">${st(n)}</td><td class="cm" data-label="Comments">${esc(n.comment)||'—'}</td><td class="acts">${nActs(n)}</td></tr>`)
+  +nSection('general',['S.No','Title','Category','Note','Reminder',''],(n,i)=>`<tr class="${n.done?'done':''}"><td class="c-n">${i+1}</td><td class="nm" data-label="Title">${esc(n.title)}</td><td data-label="Category">${(NOTE_CATS.find(c=>c[0]===n.cat)||[0,'📌'])[1]} ${esc(n.cat||'')}</td><td class="cm" data-label="Note">${esc(n.text)||'—'}</td><td data-label="Reminder">${n.due||n.done?st(n):'—'}${n.due?`<br><span class="muted" style="font-size:12px">${fmtD(n.due)}</span>`:''}</td><td class="acts">${nActs(n)}</td></tr>`);
+}
+function notesDash(){
+  const T=noteTotals(),active=S.notes.filter(n=>!n.done),items=sortNotes(active).slice(0,12);
+  const cards=items.map(n=>{
+    const m=NT[n.type],d=dueInfo(n),money_=n.type!=='general';
+    const sub=n.type==='lent'?'Lent · to collect':n.type==='pay'?esc(n.kind||'To pay'):esc(n.cat||'Note');
+    const extra=money_?(n.comment||''):(n.text||'');
+    return `<button class="ncard" data-act="go" data-tab="notes" style="--tc:${m.color}"><span class="t">${m.emoji} ${sub}</span><b>${esc(noteTitle(n))}</b>${money_?`<span class="a">${money(n.amount)}</span>`:''}${(n.due||money_)?`<span><span class="npill ${d.cls}">${d.txt}</span></span>`:''}${extra?`<p>${esc(extra)}</p>`:''}</button>`;
+  }).join('');
+  return `<section class="nsec" aria-label="Notes and reminders">
+    <div class="nhead"><div><h3>📌 Notes &amp; Reminders</h3><span>${active.length?active.length+' active':'Nothing pending'}</span></div><button data-act="go" data-tab="notes">Open Notes ›</button></div>
+    <div class="nstats"><div class="nstat"><small>To collect</small><b>${money(T.c)}</b></div><div class="nstat"><small>To pay</small><b>${money(T.p)}</b></div><div class="nstat"><small>Overdue</small><b>${T.o}</b></div></div>
+    ${cards?`<div class="nscroll">${cards}</div>`:`<div class="nempty">No notes yet. Track money you lent, EMIs and loans, or important life notes.<br><button data-act="go" data-tab="notes">+ Add your first note</button></div>`}
+  </section>`;
+}
+
 /* ================= Settings ================= */
 const ACCENTS=['#6C4DF6','#0A84FF','#30B0C7','#34C759','#FF9500','#FF2D78'];
 const EMOJIS=['⏰','🏋️','📖','💧','🧘','🥗','😴','🚶','🎯','💊','🧹','✍️'];
 function viewSettings(){
-  return `<div class="title">Settings</div><p class="sub">Make Daily Track yours.</p>
+  return `<button class="backbtn" data-act="go" data-tab="dashboard">${ICON.left} Back</button><div class="title">Settings</div><p class="sub">Make Daily Track yours.</p>
   <div class="group"><h4>Profile</h4><div class="card">
     <div class="item"><span>Your name</span><input class="inp" data-s="name" value="${esc(S.name)}" placeholder="Optional"></div>
     <div class="item"><span>Currency</span><select class="inp" data-s="currency">${['₹','$','€','£'].map(c=>`<option ${S.currency===c?'selected':''}>${c}</option>`).join('')}</select></div>
@@ -889,6 +1072,11 @@ view.addEventListener('click',async e=>{
       if(setPw(n1)){['pwCur','pwNew','pwNew2'].forEach(i=>$('#'+i).value='');toast('Password changed ✓')}
       else toast('Could not save the password');
       break}
+    case 'ntpl':ui.nType=ui.nType===v?null:v;ui.nEdit=null;renderView();if(ui.nType)$('#nform').scrollIntoView({behavior:'smooth',block:'nearest'});break;
+    case 'ncancel':ui.nType=null;ui.nEdit=null;renderView();break;
+    case 'nedit':{const n=S.notes.find(n=>n.id===id);if(!n)break;ui.nType=n.type;ui.nEdit=id;renderView();$('#nform').scrollIntoView({behavior:'smooth',block:'center'});break}
+    case 'ndone':{const n=S.notes.find(n=>n.id===id);if(!n)break;n.done=!n.done;save();renderView();toast(n.done?(n.type==='lent'?'Marked as returned ✓':n.type==='pay'?'Marked as paid ✓':'Marked as done ✓'):'Moved back to pending');break}
+    case 'ndel':{const n=S.notes.find(n=>n.id===id);if(!n)break;if(await ask('Delete this note?',`“${noteTitle(n)}” will be removed.`)){S.notes=S.notes.filter(x=>x.id!==id);if(ui.nEdit===id){ui.nType=null;ui.nEdit=null}save();renderView();toast('Note deleted')}break}
     case 'locknow':lockNow();break;
     case 'rtype':ui.R.type=v;renderView();break;
     case 'rmode':ui.R.mode=v;renderView();break;
@@ -932,7 +1120,7 @@ view.addEventListener('input',e=>{
     const h=S.habits.find(h=>h.id===t.dataset.id);if(!h)return;h[t.dataset.hf]=t.value;save();
   }else if(t.dataset.s==='name'){S.name=t.value;save();renderHero()}
 });
-view.addEventListener('submit',e=>{if(e.target.id==='ffrm'){e.preventDefault();saveFin()}});
+view.addEventListener('submit',e=>{if(e.target.id==='ffrm'){e.preventDefault();saveFin()}else if(e.target.id==='nfrm'){e.preventDefault();saveNote()}});
 view.addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset.bar&&t.type==='date'){if(t.value){ui[t.dataset.bar+'Date']=t.value;renderView()}}
@@ -1042,9 +1230,10 @@ function boot(){
 
 /* ================= init ================= */
 (function init(){
-  const h=location.hash.slice(1);if(TABS.some(t=>t.id===h))ui.tab=h;
+  const h=location.hash.slice(1);if(TABS.some(t=>t.id===h)||h==='settings')ui.tab=h;
   applyTheme();
   $('#lockbtn').innerHTML=ICON.lock;$('#lockbtn').onclick=lockNow;
+  $('#gearbtn').innerHTML=ICON.gear.replace('width="24"','width="22"').replace('height="24"','height="22"');$('#gearbtn').onclick=()=>go('settings');
   showLock(getAuth()?'login':'setup');
 })();
 </script>
