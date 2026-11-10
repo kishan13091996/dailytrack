@@ -340,6 +340,19 @@ body.locked .hero,body.locked .nav,body.locked main{display:none}
   .tbl .c-st{width:116px}
   .tiles{gap:8px}.tile b{font-size:15px}
 }
+/* v2.1 additions */
+.hn{display:block;line-height:1.25}
+.hstreak{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}
+.hstreak b{color:var(--orange)}
+.alertbox{border-radius:20px;padding:14px 16px 8px;margin:0 0 14px;border:1px solid color-mix(in srgb,var(--red) 32%,transparent);background:color-mix(in srgb,var(--red) 10%,var(--card))}
+.alertbox.soon{border-color:color-mix(in srgb,var(--orange) 38%,transparent);background:color-mix(in srgb,var(--orange) 12%,var(--card))}
+.alertbox h3{margin:0 0 6px;font-size:16px}
+.arow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--sep);padding:10px 0;font:inherit;color:var(--text);cursor:pointer}
+.arow b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arow .aamt{font-weight:700;font-size:13px}
+.bkbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:20px;padding:12px 16px;margin:0 0 14px;border:1px solid color-mix(in srgb,var(--blue) 30%,transparent);background:color-mix(in srgb,var(--blue) 9%,var(--card))}
+.bkbar b{display:block}.bkbar span{font-size:12.5px;color:var(--muted)}
+.bkact{display:flex;gap:8px}.bkact .btn{padding:9px 14px;font-size:14px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -416,6 +429,13 @@ function load(){
 let S=load();
 if(!Array.isArray(S.notes))S.notes=[];
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+/* v2.1 – side storage (separate keys; never mixed into your main data) */
+const MKEY='dailytrack.meta',PKEY='dailytrack.prev';
+const getMeta=()=>{try{return JSON.parse(localStorage.getItem(MKEY)||'{}')||{}}catch(e){return{}}};
+const setMeta=p=>{try{localStorage.setItem(MKEY,JSON.stringify(Object.assign(getMeta(),p)))}catch(e){}};
+const getPrev=()=>{try{return JSON.parse(localStorage.getItem(PKEY)||'null')}catch(e){return null}};
+const hasData=()=>Object.keys(S.logs).length>0||Object.keys(S.fin).length>0||S.notes.length>0;
+const ago=ts=>{const d=Math.floor((Date.now()-ts)/86400000);return d<=0?'today':d===1?'yesterday':d+' days ago'};
 const t0=todayStr();
 const ui={tab:'dashboard',hDate:t0,fDate:t0,nType:null,nEdit:null,
   R:{type:'both',mode:'custom',from:addDays(t0,-6),to:t0,month:t0.slice(0,7)}};
@@ -438,6 +458,25 @@ function streak(){
   if(dayPct(d)<1)d=addDays(d,-1);
   while(dayPct(d)>=1&&n<3650){n++;d=addDays(d,-1)}
   return n;
+}
+/* v2.1 – per-habit streaks (read-only; calculated from existing logs) */
+function hStreak(id){
+  let d=todayStr(),n=0;
+  if(!(S.logs[d]||{})[id])d=addDays(d,-1);
+  while((S.logs[d]||{})[id]&&n<3650){n++;d=addDays(d,-1)}
+  return n;
+}
+function bestRun(test){
+  const ds=Object.keys(S.logs).filter(test).sort();let best=0,run=0,prev=null;
+  ds.forEach(d=>{run=(prev&&addDays(prev,1)===d)?run+1:1;if(run>best)best=run;prev=d});
+  return best;
+}
+const hBest=id=>bestRun(d=>(S.logs[d]||{})[id]);
+const allBest=()=>S.habits.length?bestRun(d=>dayPct(d)>=1):0;
+function streakTxt(id){
+  const n=hStreak(id),b=Math.max(hBest(id),n);
+  if(!b)return 'Start your streak today';
+  return `<b>🔥 ${n}</b> day${n===1?'':'s'} · Best ${b}`;
 }
 function applyTheme(){
   const dark=S.theme==='dark'||(S.theme==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);
@@ -523,6 +562,59 @@ function heatmap(){
   return `<div class="heat">${h}</div>`;
 }
 
+/* v2.1 – 6-month trend charts (read-only) */
+const addMonths=(s,n)=>{const d=parse(s);return ymd(new Date(d.getFullYear(),d.getMonth()+n,1))};
+function monthStats(ms){
+  const me=monthEnd(ms),days=range(ms,me>t0?t0:me);let i=0,e=0,p=0;
+  days.forEach(d=>{const f=dayFin(d);i+=f.i;e+=f.e;p+=dayPct(d)});
+  return{ms,i,e,pct:days.length?p/days.length:0};
+}
+const last6=()=>[5,4,3,2,1,0].map(n=>monthStats(addMonths(monthStart(t0),-n)));
+const monLab=ms=>parse(ms).toLocaleDateString('en-US',{month:'short'});
+function chartFin6m(M){
+  const W=320,H=170,pb=26,pt=10,st=W/6,bw=15,th=H-pb-pt,max=Math.max(1,...M.map(x=>Math.max(x.i,x.e)));
+  const bars=M.map((x,k)=>{
+    const cx=k*st+st/2,hi=th*x.i/max,he=th*x.e/max,cur=k===5;
+    return `<g><title>${monLab(x.ms)}: income ${money(x.i,false)}, spent ${money(x.e,false)}</title>
+    <rect x="${cx-bw-1}" y="${H-pb-hi}" width="${bw}" height="${Math.max(hi,x.i?3:0)}" rx="5" fill="var(--green)"/>
+    <rect x="${cx+1}" y="${H-pb-he}" width="${bw}" height="${Math.max(he,x.e?3:0)}" rx="5" fill="var(--red)"/>
+    <text x="${cx}" y="${H-8}" text-anchor="middle" font-size="11" font-weight="600" fill="${cur?'var(--primary)':'var(--muted)'}">${monLab(x.ms)}</text></g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Income and expenses for the last 6 months"><line x1="0" x2="${W}" y1="${H-pb}" y2="${H-pb}" stroke="var(--sep)"/>${bars}</svg>
+  <div class="legend"><span style="--c:var(--green)">Income</span><span style="--c:var(--red)">Expense</span></div>`;
+}
+function chartHabit6m(M){
+  const W=320,H=160,pb=26,pt=20,bw=28,st=W/6,th=H-pb-pt;
+  const bars=M.map((x,k)=>{
+    const h=Math.max(th*x.pct,x.pct?4:0),cx=k*st+st/2,y=H-pb-h,cur=k===5;
+    return `<g><title>${monLab(x.ms)}: ${Math.round(x.pct*100)}% of habits completed</title>
+    <rect x="${cx-bw/2}" y="${pt}" width="${bw}" height="${th}" rx="9" fill="var(--fill)"/>
+    <rect x="${cx-bw/2}" y="${y}" width="${bw}" height="${h}" rx="9" fill="${cur?'var(--primary)':'color-mix(in srgb,var(--primary) 45%,transparent)'}"/>
+    <text x="${cx}" y="${pt-6}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--muted)">${Math.round(x.pct*100)}</text>
+    <text x="${cx}" y="${H-8}" text-anchor="middle" font-size="11" font-weight="600" fill="${cur?'var(--primary)':'var(--muted)'}">${monLab(x.ms)}</text></g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Average habit completion for the last 6 months">${bars}</svg>`;
+}
+
+/* v2.1 – alert banners (read-only) */
+function dueBanner(){
+  const list=sortNotes(S.notes.filter(n=>!n.done&&n.due&&daysTo(n.due)<=3));
+  if(!list.length)return '';
+  const over=list.filter(n=>daysTo(n.due)<0).length,soon=list.length-over;
+  const head=[over?`${over} overdue`:'',soon?`${soon} due soon`:''].filter(Boolean).join(' · ');
+  const rows=list.slice(0,4).map(n=>{
+    const d=dueInfo(n),m=NT[n.type];
+    return `<button class="arow" data-act="go" data-tab="notes"><span>${m.emoji}</span><b>${esc(noteTitle(n))}</b>${n.type!=='general'?`<span class="aamt">${money(n.amount)}</span>`:''}<span class="npill ${d.cls}">${d.txt}</span></button>`;
+  }).join('');
+  return `<section class="alertbox ${over?'':'soon'}" aria-label="Due date alerts"><h3>${over?'🚨':'⏰'} ${head}</h3>${rows}${list.length>4?`<div class="hint" style="margin:8px 0 0">+ ${list.length-4} more in Notes</div>`:''}</section>`;
+}
+function backupBanner(){
+  if(!hasData())return '';
+  const m=getMeta(),old=!m.lastBackup||(Date.now()-m.lastBackup)>7*86400000;
+  if(!old||(m.snoozeUntil&&m.snoozeUntil>Date.now()))return '';
+  return `<section class="bkbar" aria-label="Backup reminder"><div><b>💾 Back up your data</b><span>${m.lastBackup?'Last backup was '+ago(m.lastBackup)+'.':'You have not exported a backup yet.'}</span></div><div class="bkact"><button class="btn" data-act="export">Back up</button><button class="btn ghost" data-act="bkLater" aria-label="Remind me later">Later</button></div></section>`;
+}
+
 /* ================= Dashboard ================= */
 function viewDash(){
   const hs=S.habits,l=S.logs[t0]||{};
@@ -539,6 +631,7 @@ function viewDash(){
   const sp=mi>0?Math.min(999,Math.round(mex/mi*100)):0;
   return `
   <div class="title">Dashboard</div><p class="sub">${fmtLong(t0)}</p>
+  ${dueBanner()}${backupBanner()}
   ${notesDash()}
   <div class="grid">
     <div class="card">
@@ -546,7 +639,8 @@ function viewDash(){
       <div class="ring-wrap">${ring(pct,'var(--primary)',124)}
         <div><div style="font-size:26px;font-weight:800;letter-spacing:-.5px">${done}<span class="muted" style="font-size:16px"> / ${hs.length}</span></div>
         <div class="muted">habits completed</div>
-        <div style="margin-top:8px;font-weight:700;color:var(--orange)">🔥 ${streak()}-day streak</div></div></div>
+        <div style="margin-top:8px;font-weight:700;color:var(--orange)">🔥 ${streak()}-day streak</div>
+        ${allBest()>streak()?`<div class="muted" style="font-size:12px;font-weight:600">Best: ${allBest()} days</div>`:''}</div></div>
     </div>
     <div class="card">
       <h3>Money this month <a data-act="go" data-tab="finance">Open</a></h3>
@@ -574,7 +668,11 @@ function viewDash(){
       ${top.length?top.map(x=>`<div class="hbar"><div class="n">${esc(x.n)}</div><div class="b"><i style="width:${x.v/topMax*100}%"></i></div><div class="v">${money(x.v,false)}</div></div>`).join(''):'<div class="empty"><b>No expenses yet</b>Add entries in the Finance tab.</div>'}
       ${best&&best.c>0?`<div class="hint" style="margin-top:12px">⭐ Best habit this month: <b style="color:var(--text)">${esc(best.h.emoji)} ${esc(best.h.name)}</b> (${best.c} days)</div>`:''}
     </div>
-  </div>`;
+  </div>
+  ${(()=>{const M=last6();return `<div class="grid">
+    <div class="card"><h3>Income vs expense · last 6 months</h3>${chartFin6m(M)}</div>
+    <div class="card"><h3>Habit completion · last 6 months</h3>${chartHabit6m(M)}<div class="hint" style="margin-top:8px">Average % of habits completed per month.</div></div>
+  </div>`})()}`;
 }
 
 /* ================= date bar ================= */
@@ -590,7 +688,7 @@ function dateBar(k,val){
 /* ================= Habits ================= */
 function habitRow(h,i,on){
   return `<tr data-hid="${h.id}"><td class="c-n">${i+1}</td>
-    <td><div class="hname"><span class="emo">${esc(h.emoji)}</span><span>${esc(h.name)}</span></div></td>
+    <td><div class="hname"><span class="emo">${esc(h.emoji)}</span><span class="hn">${esc(h.name)}<small class="hstreak">${streakTxt(h.id)}</small></span></div></td>
     <td class="c-st"><div class="stcell"><span class="badge ${on?'ok':'no'}">${on?ICON.check:ICON.cross}</span>
     <button class="sw ${on?'on':''}" role="switch" aria-checked="${on}" aria-label="${esc(h.name)}" data-act="tgh" data-id="${h.id}"><i></i></button></div></td></tr>`;
 }
@@ -1005,6 +1103,11 @@ function notesDash(){
 }
 
 /* ================= Settings ================= */
+function bkStatus(){
+  const m=getMeta();
+  return m.lastBackup?`✅ Last backup: <b>${ago(m.lastBackup)}</b> (${new Date(m.lastBackup).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})})`
+    :'⚠️ You have not exported a backup yet.';
+}
 const ACCENTS=['#6C4DF6','#0A84FF','#30B0C7','#34C759','#FF9500','#FF2D78'];
 const EMOJIS=['⏰','🏋️','📖','💧','🧘','🥗','😴','🚶','🎯','💊','🧹','✍️'];
 function viewSettings(){
@@ -1035,9 +1138,11 @@ function viewSettings(){
     </div>
   </div></div>
   <div class="group"><h4>Data &amp; backup</h4><div class="card stack" style="gap:10px">
+    <div class="hint" id="bkstat" style="margin:0">${bkStatus()}</div>
     <button class="btn ghost block" data-act="export">Export backup (.json)</button>
     <button class="btn ghost block" data-act="import">Import backup</button>
     <input type="file" id="impfile" accept="application/json,.json" hidden>
+    ${getPrev()?`<button class="btn ghost block" data-act="undoimport">Undo last import (restore previous data)</button>`:''}
     <button class="btn danger block" data-act="reset">Erase all data</button>
     <div class="hint" style="margin:0">Everything is stored privately on this device (browser storage). Export a backup now and then so you never lose your history.</div>
   </div></div>
@@ -1061,7 +1166,7 @@ function aboutCard(){
     <div class="ab-head"><div class="ab-av">PK</div><div><small>Build &amp; Designed by</small><strong>Peddelli Kishan</strong></div></div>
     <a class="ab-row" href="mailto:peddellikishan1996@gmail.com"><span class="ab-ico">${mail}</span><span><small>Email</small><b>peddellikishan1996@gmail.com</b></span><span class="ab-go">${ICON.right}</span></a>
     <a class="ab-row" href="https://www.linkedin.com/in/peddelli-kishan" target="_blank" rel="noopener noreferrer"><span class="ab-ico in">in</span><span><small>LinkedIn</small><b>linkedin.com/in/peddelli-kishan</b></span><span class="ab-go">${ICON.right}</span></a>
-    <div class="ab-foot"><strong>Daily Track</strong> · Version 2.0<br>Habits, finance &amp; notes. Your data stays on your device.</div>
+    <div class="ab-foot"><strong>Daily Track</strong> · Version 2.1<br>Habits, finance &amp; notes. Your data stays on your device.</div>
   </div></div>`;
 }
 function habitList(){
@@ -1089,6 +1194,7 @@ view.addEventListener('click',async e=>{
       save();const on=!!S.logs[d][id],tr=b.closest('tr');
       b.classList.toggle('on',on);b.setAttribute('aria-checked',on);
       const bd=tr.querySelector('.badge');bd.className='badge '+(on?'ok':'no');bd.innerHTML=on?ICON.check:ICON.cross;
+      const hsE=tr.querySelector('.hstreak');if(hsE)hsE.innerHTML=streakTxt(id);
       $('#hsum').innerHTML=habitSummary();break}
     case 'ftype':setFType(v);break;
     case 'fcancel':resetFinForm();refreshFin();break;
@@ -1152,11 +1258,22 @@ view.addEventListener('click',async e=>{
       if(j<0||j>=S.habits.length)break;
       [S.habits[i],S.habits[j]]=[S.habits[j],S.habits[i]];save();$('#hlist').innerHTML=habitList();break}
     case 'export':
-      download(`DailyTrack_backup_${todayStr()}.json`,new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));toast('Backup downloaded');break;
+      download(`DailyTrack_backup_${todayStr()}.json`,new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));
+      setMeta({lastBackup:Date.now()});toast('Backup downloaded');
+      if(ui.tab==='dashboard')renderView();else{const s=$('#bkstat');if(s)s.innerHTML=bkStatus()}
+      break;
+    case 'bkLater':setMeta({snoozeUntil:Date.now()+3*86400000});renderView();break;
     case 'import':$('#impfile').click();break;
+    case 'undoimport':{
+      const p=getPrev();if(!p||!p.data){toast('Nothing to undo');break}
+      if(await ask('Undo last import?','Your data will go back to exactly how it was before the import.','Restore previous data',false)){
+        S=Object.assign(clone(DEFAULT),p.data);if(!Array.isArray(S.notes))S.notes=[];save();
+        try{localStorage.removeItem(PKEY)}catch(e){}
+        applyTheme();renderHero();renderView();toast('Previous data restored ✓')}
+      break}
     case 'reset':
       if(await ask('Erase all data?','All habits, logs and finance entries will be permanently deleted.','Erase everything')){
-        try{localStorage.removeItem(KEY)}catch(e){}S=clone(DEFAULT);applyTheme();renderHero();renderView();toast('All data erased')}
+        try{localStorage.removeItem(KEY);localStorage.removeItem(PKEY);localStorage.removeItem(MKEY)}catch(e){}S=clone(DEFAULT);applyTheme();renderHero();renderView();toast('All data erased')}
       break;
   }
 });
@@ -1173,12 +1290,25 @@ view.addEventListener('change',e=>{
   else if(t.dataset.r){if(t.value){ui.R[t.dataset.r]=t.value;renderReportPreview()}}
   else if(t.dataset.s==='currency'){S.currency=t.value;save();toast('Currency updated')}
   else if(t.id==='impfile'&&t.files[0]){
-    const fr=new FileReader();
-    fr.onload=()=>{try{
-      const o=JSON.parse(fr.result);if(!Array.isArray(o.habits))throw 0;
-      S=Object.assign(clone(DEFAULT),o);save();applyTheme();renderHero();renderView();toast('Backup restored ✓')
-    }catch(err){toast('That file is not a valid backup')}};
-    fr.readAsText(t.files[0]);
+    const file=t.files[0],fr=new FileReader();
+    fr.onload=async()=>{
+      let o;
+      try{
+        o=JSON.parse(fr.result);
+        const obj=x=>x&&typeof x==='object'&&!Array.isArray(x);
+        if(!obj(o)||!Array.isArray(o.habits)||(o.logs!==undefined&&!obj(o.logs))||(o.fin!==undefined&&!obj(o.fin))||(o.notes!==undefined&&!Array.isArray(o.notes)))throw 0;
+      }catch(err){toast('That file is not a valid backup');t.value='';return}
+      const cnt=Object.values(o.fin||{}).reduce((a,x)=>a+(Array.isArray(x)?x.length:0),0);
+      const sum=`This backup has ${o.habits.length} habits, ${Object.keys(o.logs||{}).length} logged days, ${cnt} finance entries and ${(o.notes||[]).length} notes. `;
+      if(await ask('Replace current data with this backup?',sum+'Your current data is kept as a restore point, so you can undo this from Settings.','Import backup',false)){
+        try{localStorage.setItem(PKEY,JSON.stringify({at:Date.now(),data:S}))}catch(e){
+          if(!(await ask('Could not create a restore point','Browser storage is full, so the import cannot be undone. Import anyway?','Import anyway')))return}
+        S=Object.assign(clone(DEFAULT),o);if(!Array.isArray(S.notes))S.notes=[];
+        save();applyTheme();renderHero();renderView();toast('Backup restored ✓')
+      }
+      t.value='';
+    };
+    fr.readAsText(file);
   }
 });
 $('#nav').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)go(b.dataset.tab)});
@@ -1261,7 +1391,7 @@ function showLock(mode){
   const fg=$('#lkForgot');
   if(fg)fg.onclick=async()=>{
     if(await ask('Reset Daily Track?','Without the password, the only way in is to erase everything saved in this app (habits, logs, finance entries and the password). This cannot be undone. If you exported a backup, you can import it afterwards.','Erase & reset')){
-      try{localStorage.removeItem(KEY);localStorage.removeItem(AKEY)}catch(e){}
+      try{localStorage.removeItem(KEY);localStorage.removeItem(AKEY);localStorage.removeItem(PKEY);localStorage.removeItem(MKEY)}catch(e){}
       S=clone(DEFAULT);applyTheme();showLock('setup');
     }
   };
