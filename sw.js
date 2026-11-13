@@ -1,5 +1,5 @@
 /* Daily Track – service worker (offline support). Never touches your saved data. */
-const CACHE = 'dailytrack-v3';
+const CACHE = 'dailytrack-v4';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 const EXTRA = ['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
 const EXT_HOSTS = /(^|\.)(cdnjs\.cloudflare\.com|fonts\.googleapis\.com|fonts\.gstatic\.com)$/;
