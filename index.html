@@ -451,7 +451,61 @@ body.locked .fab,body.locked .srch{display:none}
 .srow:last-of-type{border-bottom:0}
 .srow .lmain{flex:1}.srow .se{font-size:20px;width:28px;text-align:center}
 .srow .sa{font-weight:700;font-size:13.5px;white-space:nowrap}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* v2.3 · Fitness plan */
+.moretools{grid-template-columns:repeat(5,1fr);gap:8px}
+.mt{padding:12px 2px}.mt b{font-size:11px}
+.fpchips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}
+.fpc{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--sep);background:var(--card);color:var(--text);border-radius:18px;padding:12px 4px 10px;box-shadow:var(--shadow);font:inherit;text-align:center;min-width:0}
+.fpc:active{transform:scale(.97)}
+.fpi{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--tc) 16%,transparent);color:var(--tc);margin-bottom:3px}
+.fpc small{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.fpc b{font-size:14px;line-height:1.2;overflow-wrap:anywhere}
+.fpc em{font-style:normal;font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.2}
+.fpnudge{margin-bottom:14px;background:color-mix(in srgb,var(--primary) 9%,var(--card))}
+.fpnudge p{margin:4px 0 12px;color:var(--muted)}
+.wkstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:0 0 14px}
+.wkd{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--sep);background:var(--card);color:var(--text);border-radius:14px;padding:8px 0;font:inherit;box-shadow:var(--shadow);min-width:0}
+.wkd small{font-size:11px;font-weight:700;color:var(--muted)}
+.wkd span{font-size:18px;line-height:1.25}
+.wkd.on{background:var(--primary);color:#fff;border-color:transparent}
+.wkd.on small{color:rgba(255,255,255,.85)}
+.wkd.today:not(.on) small{color:var(--primary)}
+.fpstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.fpstats div{background:var(--fill);border-radius:14px;padding:10px 4px;text-align:center}
+.fpstats b{display:block;font-size:20px;font-weight:800;letter-spacing:-.3px}
+.fpstats small{font-size:11px;color:var(--muted);font-weight:600}
+.exr{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--sep)}
+.exr:last-child{border-bottom:0;padding-bottom:2px}
+.exfig{width:112px;height:91px;border-radius:16px;background:var(--primary-soft);overflow:hidden}
+.exfig{position:relative}
+.exfig svg{display:block;width:100%;height:100%}
+.exgif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#fff;opacity:0;transition:opacity .25s}
+.exm{min-width:0}
+.exh{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.exh b{font-size:15px;line-height:1.25}
+.exdose{background:var(--primary);color:#fff;font-weight:700;font-size:12px;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none}
+.exm small{display:block;color:var(--muted);font-size:12px;font-weight:600;margin-top:3px}
+.exm p{margin:4px 0 0;font-size:13px;line-height:1.35}
+.fig path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fig{--skin:#E9B792;--skin2:#CF9873;--hair:#5B3A24;--top:#E8622C;--short:#2D2F36;--short2:#1F2127;--shoe:#3A3D46}
+.fig.fem{--hair:#2E1C14;--top:#F4B223;--short:#6B7280;--short2:#555B67;--shoe:#4B5160}
+.fig .cfa{stroke:var(--skin2);stroke-width:4.6}
+.fig .cfl{stroke:var(--skin2);stroke-width:6.2}
+.fig .cfs{stroke:var(--short2);stroke-width:8.6}
+.fig .cbd{stroke:var(--skin);stroke-width:11}
+.fig .cnl{stroke:var(--skin);stroke-width:6.6}
+.fig .cns{stroke:var(--short);stroke-width:9}
+.fig .csh{stroke:var(--shoe);stroke-width:5.4}
+.fig .ctp{stroke:var(--top);stroke-width:12.5}
+.fig .cnk{stroke:var(--skin);stroke-width:5}
+.fig .cna{stroke:var(--skin);stroke-width:4.8}
+.fig .chr{stroke:var(--hair);stroke-width:4}
+.fig .chr2{stroke:var(--hair);stroke-width:14}
+.fig .chd{stroke:var(--skin);stroke-width:12.5}
+.fig .dbl{stroke:#2B2D33;stroke-width:8}
+.fig .fl{stroke:var(--muted);stroke-width:2;opacity:.45}
+.fig .bn{stroke:var(--muted);stroke-width:4;opacity:.6}
+.fig .br{stroke:var(--muted);stroke-width:3;opacity:.8}
 </style>
 </head>
 <body class="locked">
@@ -529,7 +583,9 @@ const DEFAULT={
   todo:[],     // [{id,t,done,list,createdAt}]
   journal:{},  // {date:{m:1-5,t:''}}
   fit:{},      // {date:{w,wa,st}}
-  fitcfg:{water:8,steps:8000}
+  fitcfg:{water:8,steps:8000},
+  /* v2.3 – fitness profile for the workout plan: {gender,height,weight,goal,place,mins,done:{date:1}} */
+  fp:{}
 };
 const clone=o=>JSON.parse(JSON.stringify(o));
 function load(){
@@ -542,6 +598,8 @@ function fixState(){
   if(!S.fitcfg||typeof S.fitcfg!=='object'||Array.isArray(S.fitcfg))S.fitcfg={};
   S.fitcfg.water=+S.fitcfg.water>0?+S.fitcfg.water:8;
   S.fitcfg.steps=+S.fitcfg.steps>0?+S.fitcfg.steps:8000;
+  if(!S.fp||typeof S.fp!=='object'||Array.isArray(S.fp))S.fp={};
+  if(!S.fp.done||typeof S.fp.done!=='object'||Array.isArray(S.fp.done))delete S.fp.done;
 }
 let S=load();
 fixState();
@@ -551,7 +609,7 @@ const MKEY='dailytrack.meta',PKEY='dailytrack.prev';
 const getMeta=()=>{try{return JSON.parse(localStorage.getItem(MKEY)||'{}')||{}}catch(e){return{}}};
 const setMeta=p=>{try{localStorage.setItem(MKEY,JSON.stringify(Object.assign(getMeta(),p)))}catch(e){}};
 const getPrev=()=>{try{return JSON.parse(localStorage.getItem(PKEY)||'null')}catch(e){return null}};
-const hasData=()=>Object.keys(S.logs).length>0||Object.keys(S.fin).length>0||S.notes.length>0||S.budgets.length>0||S.subs.length>0||S.savings.length>0||S.goals.length>0||S.dates.length>0||S.todo.length>0||Object.keys(S.journal).length>0||Object.keys(S.fit).length>0;
+const hasData=()=>Object.keys(S.logs).length>0||Object.keys(S.fin).length>0||S.notes.length>0||S.budgets.length>0||S.subs.length>0||S.savings.length>0||S.goals.length>0||S.dates.length>0||S.todo.length>0||Object.keys(S.journal).length>0||Object.keys(S.fit).length>0||Object.keys(S.fp).length>0;
 const ago=ts=>{const d=Math.floor((Date.now()-ts)/86400000);return d<=0?'today':d===1?'yesterday':d+' days ago'};
 const t0=todayStr();
 const ui={tab:'dashboard',hDate:t0,fDate:t0,jDate:t0,xDate:t0,nType:null,nEdit:null,
@@ -1216,6 +1274,7 @@ function viewSettings(){
     <div class="item"><span>Your name</span><input class="inp" data-s="name" value="${esc(S.name)}" placeholder="Optional"></div>
     <div class="item"><span>Currency</span><select class="inp" data-s="currency">${['₹','$','€','£'].map(c=>`<option ${S.currency===c?'selected':''}>${c}</option>`).join('')}</select></div>
   </div></div>
+  ${fpSettings()}
   <div class="group"><h4>Appearance</h4><div class="card">
     <div class="item"><span>Theme</span><div class="seg" style="min-width:210px">${[['auto','Auto'],['light','Light'],['dark','Dark']].map(([v,t])=>`<button class="${S.theme===v?'on':''}" data-act="theme" data-v="${v}">${t}</button>`).join('')}</div></div>
     <div class="item"><span>Accent colour</span><div class="swatches">${ACCENTS.map(c=>`<button class="sw-c ${S.accent===c?'on':''}" style="background:${c}" data-act="accent" data-v="${c}" aria-label="Accent ${c}"></button>`).join('')}</div></div>
@@ -1266,7 +1325,7 @@ function aboutCard(){
     <div class="ab-head"><div class="ab-av">PK</div><div><small>Build &amp; Designed by</small><strong>Peddelli Kishan</strong></div></div>
     <a class="ab-row" href="mailto:peddellikishan1996@gmail.com"><span class="ab-ico">${mail}</span><span><small>Email</small><b>peddellikishan1996@gmail.com</b></span><span class="ab-go">${ICON.right}</span></a>
     <a class="ab-row" href="https://www.linkedin.com/in/peddelli-kishan" target="_blank" rel="noopener noreferrer"><span class="ab-ico in">in</span><span><small>LinkedIn</small><b>linkedin.com/in/peddelli-kishan</b></span><span class="ab-go">${ICON.right}</span></a>
-    <div class="ab-foot"><strong>Daily Track</strong> · Version 2.2<br>Habits, finance &amp; notes. Your data stays on your device.</div>
+    <div class="ab-foot"><strong>Daily Track</strong> · Version 2.3<br>Habits, finance &amp; notes. Your data stays on your device.</div>
   </div></div>`;
 }
 function habitList(){
@@ -1567,7 +1626,7 @@ function makeCSV(){
 ACT.csv=()=>makeCSV();
 
 /* ================= Habits · targets, grouping, journal, weekly review ================= */
-const HAB_TABS=[['habits','Habits'],['journal','Journal'],['review','Review']];
+const HAB_TABS=[['habits','Habits'],['fitness','Fitness'],['review','Review']];
 const GROUPS=[['m','🌅 Morning'],['','☀️ Anytime'],['e','🌙 Evening']];
 const TARGETS=[[0,'Every day'],[1,'1× a week'],[2,'2× a week'],[3,'3× a week'],[4,'4× a week'],[5,'5× a week'],[6,'6× a week']];
 const isTgt=h=>+h.target>=1&&+h.target<7;
@@ -1616,7 +1675,7 @@ function habitRows(l){
 }
 function viewHabits(){
   const t=ui.hTab||'habits',head=`<div class="title">Habit Tracker</div>`;
-  if(t==='journal')return `${head}<p class="sub">One line and a mood for the day.</p>${pills('hTab',HAB_TABS,t)}${viewJournal()}`;
+  if(t==='fitness')return viewFitnessPlan();
   if(t==='review')return `${head}<p class="sub">Your week at a glance.</p>${pills('hTab',HAB_TABS,t)}${viewReview()}`;
   const l=S.logs[ui.hDate]||{};
   return `${head}<p class="sub">Tick what you completed. ✓ = done, ✗ = not done.</p>
@@ -1757,12 +1816,314 @@ CHG.hopt=el=>{
   save();toast('Updated ✓');
 };
 
+/* ================= v2.3 · Fitness plan (replaces the Journal tab on Habits; Journal now lives in More tools) ================= */
+const FP_GOALS=[['loss','Weight loss'],['fit','Stay fit'],['gain','Weight gain']];
+const FP_GEN=[['male','Male'],['female','Female'],['other','Other']];
+const FP_PLACE=[['home','Home'],['gym','Gym']];
+const FP_MINS=[30,40,45];
+const FI={
+  male:svg('<circle cx="10" cy="14" r="5"/><path d="M14 10l6-6M15 4h5v5"/>',22,2.1),
+  female:svg('<circle cx="12" cy="9" r="5"/><path d="M12 14v8M9 19h6"/>',22,2.1),
+  other:svg('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',22,2.1),
+  home:svg('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',22,2),
+  gym:svg('<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>',22,2.2),
+  goal:svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',22,2),
+  height:svg('<path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/>',22,2),
+  weight:svg('<rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8.5 9.5a3.5 3.5 0 0 1 7 0"/><path d="M12 9.5l1.8-1.8"/>',22,2),
+  time:svg('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',22,2)
+};
+
+/* ---------- animated exercise figures (pure SVG, no files, works offline) ---------- */
+const RAD=Math.PI/180,GROUND=80;
+const dv=(a,l)=>[Math.sin(a*RAD)*l,Math.cos(a*RAD)*l];
+/* pose: t = torso angle, a = near arm [upper,fore], l = near leg [thigh,shin], b/m = far arm/leg. 0° = down, 90° = forward, 180° = up */
+const PS=(t,a,l,o)=>Object.assign({t,a,l,b:a,m:l},o||{});
+const ANIM={
+  ac:{s:[0,60,120,180,240,300].map(x=>PS(180,[x,x],[0,0])),d:3.2,an:'p',x:58},
+  jj:{s:[PS(180,[8,8],[0,0]),PS(180,[170,170],[22,0],{m:[-22,0],up:5})],d:1,an:'p',x:58},
+  hk:{s:[PS(176,[40,120],[95,-5],{b:[-40,40],m:[0,0]}),PS(176,[-40,40],[0,0],{b:[40,120],m:[95,-5]})],d:.9,an:'p',x:58},
+  mar:{s:[PS(178,[35,110],[62,-8],{b:[-30,40],m:[0,0]}),PS(178,[-30,40],[0,0],{b:[35,110],m:[62,-8]})],d:1.6,an:'p',x:58},
+  jog:{s:[PS(170,[50,120],[50,-25],{b:[-45,50],m:[-35,-75]}),PS(170,[-45,50],[-35,-75],{b:[50,120],m:[50,-25]})],d:.8,an:'p',x:58},
+  sq:{s:[PS(180,[90,90],[0,0]),PS(140,[90,90],[80,-15])],d:2.6,an:'f',x:50},
+  sj:{s:[PS(140,[-30,-10],[80,-15]),PS(180,[170,170],[0,0],{up:12})],d:1.5,an:'f',x:50},
+  lu:{s:[PS(180,[0,0],[0,0]),PS(180,[0,0],[80,-5],{m:[-20,-75]})],d:2.6,an:'p',x:58},
+  dlu:{s:[PS(180,[0,0],[0,0]),PS(180,[0,0],[80,-5],{m:[-20,-75]})],d:2.6,an:'p',x:58,db:1},
+  gsq:{s:[PS(180,[20,160],[0,0]),PS(150,[20,160],[80,-15])],d:2.6,an:'f',x:50,db:1},
+  rdl:{s:[PS(180,[0,0],[0,0]),PS(100,[0,0],[12,-12])],d:2.8,an:'f',x:50,db:1},
+  gb:{s:[PS(-90,[90,90],[125,-50]),PS(-110,[90,90],[110,-36])],d:2.4,an:'f',x:84,g:'a'},
+  pu:{s:[PS(117,[0,0],[-63,-63]),PS(109,[-60,20],[-71,-71])],d:2.2,an:'p',x:52,g:'a'},
+  pl:{s:[PS(103,[0,90],[-77,-77]),PS(106,[0,90],[-74,-74])],d:3,an:'p',x:52,g:'a'},
+  cr:{s:[PS(-90,[100,100],[125,-50]),PS(-135,[70,70],[125,-50])],d:2,an:'f',x:84,g:'a'},
+  mc:{s:[PS(117,[0,0],[-63,-63],{m:[40,-80]}),PS(117,[0,0],[40,-80],{m:[-63,-63]})],d:.9,an:'p',x:52,g:'a'},
+  lr:{s:[PS(-90,[90,90],[95,95]),PS(-90,[90,90],[172,172])],d:2.8,an:'p',x:56,g:'a'},
+  sup:{s:[PS(90,[90,90],[-90,-90]),PS(98,[75,75],[-78,-78])],d:2.4,an:'p',x:56,g:'a'},
+  sp:{s:[PS(180,[40,170],[0,0]),PS(180,[178,180],[0,0])],d:2.4,an:'f',x:56,db:1},
+  bc:{s:[PS(180,[0,0],[0,0]),PS(180,[10,150],[0,0])],d:2.2,an:'f',x:56,db:1},
+  fr:{s:[PS(180,[0,0],[0,0]),PS(180,[90,90],[0,0])],d:2.4,an:'f',x:50,db:1},
+  te:{s:[PS(180,[180,180],[0,0]),PS(180,[172,-35],[0,0])],d:2.4,an:'f',x:56,db:1},
+  row:{s:[PS(110,[0,0],[20,-15]),PS(110,[-70,0],[20,-15])],d:2.2,an:'f',x:56,db:1},
+  bp:{s:[PS(-90,[180,180],[120,-5]),PS(-90,[10,175],[120,-5])],d:2.4,an:'p',x:72,db:1,bench:1},
+  pul:{s:[PS(180,[180,180],[0,-30]),PS(180,[22,175],[0,-30])],d:2.6,an:'h',x:60,g:'h',bar:10},
+  ff:{s:[PS(180,[0,0],[0,0]),PS(60,[0,0],[8,-8])],d:3.2,an:'f',x:46},
+  qs:{s:[PS(180,[0,0],[0,0]),PS(180,[0,0],[0,0],{m:[-10,-155],b:[-20,-70]})],d:3.2,an:'f',x:58}
+};
+const RM=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+function solvePose(p,ex){
+  const f1=n=>+n.toFixed(1),hip=[0,0],neck=dv(p.t,22),hd=dv(p.t,9),head=[neck[0]+hd[0],neck[1]+hd[1]];
+  const arm=(u,f)=>{const e=dv(u,13),w=dv(f,12);return[[neck[0]+e[0],neck[1]+e[1]],[neck[0]+e[0]+w[0],neck[1]+e[1]+w[1]]]};
+  const leg=(u,f)=>{const k=dv(u,16),s=dv(f,16);return[k,[k[0]+s[0],k[1]+s[1]]]};
+  const A=arm(p.a[0],p.a[1]),B=arm(p.b[0],p.b[1]),L=leg(p.l[0],p.l[1]),M=leg(p.m[0],p.m[1]),g=ex.g||'f';
+  let dy;
+  if(g==='h')dy=ex.bar-A[1][1];
+  else{let m=Math.max(L[1][1],M[1][1]);if(g==='a')m=Math.max(m,A[1][1],B[1][1],0,neck[1],head[1]+5);dy=GROUND-m-(p.up||0)}
+  const an=ex.an||'f',ax=an==='f'?L[1][0]:an==='h'?A[1][0]:0,dx=(ex.x||56)-ax;
+  const sh=q=>[f1(q[0]+dx),f1(q[1]+dy)];
+  return{hip:sh(hip),neck:sh(neck),head:sh(head),A:A.map(sh),B:B.map(sh),L:L.map(sh),M:M.map(sh)};
+}
+const pj=q=>q[0]+' '+q[1];
+function figSvg(key,label,gen){
+  const ex=ANIM[key];if(!ex)return '';
+  const ff=gen==='female',S2=ex.s.map(p=>solvePose(p,ex));
+  const lp=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t],f1=n=>+n.toFixed(1);
+  const U=s=>{const u=[s.neck[0]-s.hip[0],s.neck[1]-s.hip[1]],l=Math.hypot(u[0],u[1])||1;return[u[0]/l,u[1]/l]};
+  const HC=s=>{const u=U(s),f=[-u[1],u[0]];return[f1(s.head[0]+u[0]*2.2-f[0]*2.4),f1(s.head[1]+u[1]*2.2-f[1]*2.4)]};
+  const tf=ff?.4:.82;
+  const E=[ /* [css class, path builder] back to front */
+    ['cfa',s=>`M${pj(s.neck)}L${pj(s.B[0])}L${pj(s.B[1])}`],
+    ['cfl',s=>`M${pj(s.hip)}L${pj(s.M[0])}L${pj(s.M[1])}`],
+    ['cfs',s=>`M${pj(s.hip)}L${pj(lp(s.hip,s.M[0],.6).map(f1))}`],
+    ['csh',s=>`M${pj(s.M[1])}L${f1(s.M[1][0]+4.5)} ${s.M[1][1]}`],
+    ['cbd',s=>`M${pj(s.hip)}L${pj(s.neck)}`],
+    ['cnl',s=>`M${pj(s.hip)}L${pj(s.L[0])}L${pj(s.L[1])}`],
+    ['csh',s=>`M${pj(s.L[1])}L${f1(s.L[1][0]+4.5)} ${s.L[1][1]}`],
+    ['cns',s=>`M${pj(s.hip)}L${pj(lp(s.hip,s.L[0],.6).map(f1))}M${pj(s.hip)}L${pj(lp(s.hip,s.neck,.2).map(f1))}`],
+    ['ctp',s=>`M${pj(s.neck)}L${pj(lp(s.neck,s.hip,tf).map(f1))}`],
+    ['cnk',s=>{const u=U(s);return `M${pj(s.neck)}L${f1(s.neck[0]+u[0]*4)} ${f1(s.neck[1]+u[1]*4)}`}],
+    ['cna',s=>`M${pj(s.neck)}L${pj(s.A[0])}L${pj(s.A[1])}`]
+  ];
+  if(ff)E.push(['chr',s=>{const h=HC(s),u=U(s),f=[-u[1],u[0]];return `M${pj(h)}L${f1(h[0]-f[0]*8)} ${f1(h[1]-f[1]*8+5)}`}]);
+  E.push(['chr2',s=>`M${pj(HC(s))}L${pj(HC(s))}`],['chd',s=>`M${pj(s.head)}L${pj(s.head)}`]);
+  if(ex.db)E.push(['dbl',s=>`M${pj(s.A[1])}L${pj(s.A[1])}M${pj(s.B[1])}L${pj(s.B[1])}`]);
+  const mv=!RM()&&S2.length>1,n=S2.length+1,kt=Array.from({length:n},(_,i)=>(i/(n-1)).toFixed(3)).join(';'),ks=Array(n-1).fill('.45 0 .55 1').join(';');
+  const path=(cls,fn)=>`<path class="${cls}" d="${fn(S2[0])}">${mv?`<animate attributeName="d" dur="${ex.d}s" repeatCount="indefinite" calcMode="spline" keyTimes="${kt}" keySplines="${ks}" values="${S2.concat([S2[0]]).map(fn).join(';')}"/>`:''}</path>`;
+  const s0=S2[0];let stat='';
+  if(ex.bar!=null)stat=`<path class="br" d="M${(ex.x||60)-24} ${ex.bar}H${(ex.x||60)+24}M${(ex.x||60)-24} ${ex.bar}V${ex.bar-6}M${(ex.x||60)+24} ${ex.bar}V${ex.bar-6}"/>`;
+  else stat=`<path class="fl" d="M8 ${GROUND+3}H112"/>`;
+  if(ex.bench){const hx=s0.hip[0],hy=s0.hip[1]+4;stat+=`<path class="bn" d="M${hx-36} ${hy}H${hx+8}M${hx-30} ${hy}V${GROUND+2}M${hx+2} ${hy}V${GROUND+2}"/>`}
+  return `<svg class="fig ${ff?'fem':'mal'}" viewBox="0 -8 120 98" role="img" aria-label="${esc(label||'')}">${stat}${E.map(([c,fn])=>path(c,fn)).join('')}</svg>`;
+}
+const figCache={};
+const fig=(k,l)=>{const ck=k+'|'+RM()+'|'+FPG;return figCache[ck]||(figCache[ck]=figSvg(k,l,FPG))};
+
+/* ---------- exercise library: id -> [name, animation, kind r=reps t=timed, cue, muscles, high-impact] ---------- */
+const EXL={
+  ac:['Arm circles','ac','t','Big slow circles, forward then backward.','Shoulders'],
+  jj:['Jumping jacks','jj','t','Light on your feet, arms fully overhead.','Full body',1],
+  mar:['Marching in place','mar','t','Lift your knees to hip height at an easy pace.','Legs · heart'],
+  wlk:['Brisk walk in place','mar','t','Swing your arms and keep a steady pace.','Legs · heart'],
+  pwk:['Power walk in place','mar','t','Pump your arms and keep a brisk, steady pace.','Legs · heart'],
+  smr:['Slow knee lifts','mar','t','Lift each knee slowly, tighten your belly.','Legs · core'],
+  hk:['High knees','hk','t','Drive knees up fast, stay tall.','Legs · heart',1],
+  jog:['Jog in place','jog','t','Soft landings, relaxed shoulders.','Legs · heart',1],
+  tjog:['Treadmill jog or brisk walk','jog','t','Pick a pace where you can still talk.','Legs · heart'],
+  ff:['Forward fold','ff','t','Soft knees, let your head hang heavy.','Hamstrings · back'],
+  qs:['Standing quad stretch','qs','t','Hold the wall if needed. Switch legs halfway.','Quads'],
+  sq:['Bodyweight squats','sq','r','Sit back, chest up, knees track over toes.','Quads · glutes'],
+  ssq:['Sumo squats','sq','r','Feet wide, toes out, push knees out.','Glutes · inner thigh'],
+  psq:['Pulse squats','sq','r','Stay low and pulse in small moves.','Quads · glutes'],
+  lu:['Reverse lunges','lu','r','Step back, drop the knee, push through the front heel.','Quads · glutes'],
+  gb:['Glute bridges','gb','r','Squeeze your glutes at the top for a second.','Glutes · hamstrings'],
+  sgb:['Slow glute bridges','gb','r','Three seconds up, three seconds down.','Glutes · hamstrings'],
+  sj:['Squat jumps','sj','r','Land softly and go straight into the next rep.','Legs · heart',1],
+  gsq:['Goblet squats','gsq','r','Hold one dumbbell at your chest, elbows inside the knees.','Quads · glutes'],
+  dlu:['Dumbbell lunges','dlu','r','Dumbbells at your sides, torso tall.','Quads · glutes'],
+  rdl:['Romanian deadlifts','rdl','r','Push hips back, flat back, dumbbells slide down your legs.','Hamstrings · glutes'],
+  hth:['Hip thrusts','gb','r','Shoulders on a bench or floor, drive hips up and squeeze.','Glutes'],
+  pu:['Push-ups','pu','r','Straight line from head to heels, chest to the floor. Knees down is fine.','Chest · triceps'],
+  wpu:['Wide push-ups','pu','r','Hands wider than shoulders.','Chest · shoulders'],
+  cpu:['Close-grip push-ups','pu','r','Elbows brush your sides.','Triceps · chest'],
+  dpu:['Slow push-ups','pu','r','Three seconds down, one second up.','Chest · triceps'],
+  bp:['Dumbbell bench press','bp','r','Lower to chest level, press straight up.','Chest · shoulders'],
+  sp:['Dumbbell shoulder press','sp','r','Press overhead without arching your back.','Shoulders · triceps'],
+  fr:['Dumbbell front raises','fr','r','Lift to shoulder height, lower slowly.','Shoulders'],
+  te:['Overhead triceps extension','te','r','Keep your elbows close to your head.','Triceps'],
+  sup:['Superman hold','sup','r','Lift arms and legs together, pause for 2 seconds.','Lower back · glutes'],
+  sup2:['Slow superman','sup','r','Lift, hold 3 seconds, lower with control.','Lower back · glutes'],
+  brow:['Backpack rows','row','r','Hinge forward, pull a loaded backpack to your hip.','Back · biceps'],
+  bcb:['Backpack curls','bc','r','Elbows pinned to your sides.','Biceps'],
+  row:['Dumbbell rows','row','r','Flat back, pull elbows towards your hips.','Back · biceps'],
+  pul:['Pull-ups (or assisted)','pul','r','Pull your chest to the bar, lower slowly.','Back · biceps'],
+  bc:['Dumbbell biceps curls','bc','r','Elbows pinned to your sides.','Biceps'],
+  pl:['Plank','pl','t','Head to heels in one line, squeeze belly and glutes.','Core'],
+  cr:['Crunches','cr','r','Lift your shoulder blades, do not pull on your neck.','Abs'],
+  lr:['Leg raises','lr','r','Lower slowly, keep your lower back on the floor.','Lower abs'],
+  mc:['Mountain climbers','mc','t','Drive knees to your chest, hips low.','Core · heart',1]
+};
+const EX=id=>{const e=EXL[id];return{id,n:e[0],a:e[1],k:e[2],cue:e[3],mu:e[4],hi:!!e[5]}};
+const POOL={
+  home:{legs:{f:'gb sq lu ssq sgb psq',m:'sq lu ssq psq gb sgb',o:'sq gb lu ssq psq sgb'},
+    push:{f:'pu wpu dpu cpu',m:'pu wpu cpu dpu',o:'pu wpu dpu cpu'},
+    pull:{f:'sup brow sup2',m:'brow sup bcb sup2',o:'brow sup sup2 bcb'},
+    core:{a:'pl cr lr'},cardio:{a:'jj hk mc sj jog'}},
+  gym:{legs:{f:'hth gsq rdl dlu sq lu sgb',m:'gsq rdl dlu hth sq lu ssq',o:'gsq rdl dlu hth sq lu'},
+    push:{f:'bp sp pu wpu dpu fr',m:'bp sp fr te pu wpu cpu',o:'bp sp fr pu wpu te'},
+    pull:{f:'row pul bc sup brow sup2',m:'pul row bc sup brow sup2',o:'pul row bc sup brow sup2'},
+    core:{a:'pl cr lr'},cardio:{a:'tjog jj hk mc sj'}}
+};
+/* day templates (Mon..Sun): [title, emoji, [muscle groups]] — Sunday is always the rest day */
+const REST=['Rest & recover','😴',null];
+const PLANS={
+  loss:[['Full-body burn','🔥',['legs','push','pull','core','cardio']],['Cardio HIIT','⚡',['cardio','legs','cardio','core']],['Lower body + core','🦵',['legs','legs','core','cardio']],['Upper body + core','💪',['push','pull','push','core']],['Full-body circuit','🔄',['cardio','legs','push','pull','core']],['Cardio + core finisher','🏃',['cardio','core','cardio','core']],REST],
+  fit:[['Full body A','💪',['legs','push','pull','core']],['Cardio + core','🏃',['cardio','core','cardio','core']],['Lower body','🦵',['legs','legs','core']],['Upper body','🏋️',['push','pull','push','pull','core']],['Full body B','🔄',['legs','pull','push','core','cardio']],['Active fun day','⚡',['cardio','legs','core']],REST],
+  gain:[['Push day','💪',['push','push','push','push','push','push']],['Pull day','🏋️',['pull','pull','pull','pull','pull','pull','core']],['Leg day','🦵',['legs','legs','legs','legs','legs','core']],['Core + light cardio','🔥',['core','cardio','core','cardio']],['Upper body','💪',['push','pull','push','pull','push','pull']],['Lower body + core','🦵',['legs','core','legs','core','legs']],REST]
+};
+const FP_TIPS={
+  loss:'Fat loss happens mostly in the kitchen: protein with every meal, plenty of water, 8,000+ steps and 7 hours of sleep. Stay consistent for 4 weeks before judging results.',
+  fit:'Keep moving every day, vary your workouts and sleep well. If a day feels easy, add one more set or a few reps.',
+  gain:'Eat a little above your maintenance with protein at each meal. Add reps or weight each week, that is what builds muscle. Sleep 7 to 9 hours.'
+};
+function fpInfo(){
+  const f=S.fp||{},ds=Object.keys(S.fit).filter(d=>+(S.fit[d]||{}).w>0).sort(),lastW=ds.length?+S.fit[ds[ds.length-1]].w:0;
+  const height=+f.height>0?+f.height:0,weight=+f.weight>0?+f.weight:lastW;
+  return{gender:['male','female','other'].includes(f.gender)?f.gender:'',height,weight,goal:['loss','fit','gain'].includes(f.goal)?f.goal:'fit',
+    place:f.place==='gym'?'gym':'home',mins:FP_MINS.includes(+f.mins)?+f.mins:40,
+    bmi:height&&weight?weight/Math.pow(height/100,2):0,touched:!!(f.gender||f.height||f.weight||f.goal||f.place||f.mins)};
+}
+const bmiTxt=b=>!b?'':b<18.5?'Underweight':b<25?'Healthy':b<30?'Overweight':'High';
+function genDay(i,info){
+  const tpl=PLANS[info.goal][i];
+  if(!tpl[2])return{rest:true,title:tpl[0],emoji:tpl[1]};
+  const low=info.bmi>=30,G=info.gender==='female'?'f':info.gender==='male'?'m':'o',used=new Set(),pools={},compound=new Set('sq lu gb gsq dlu rdl hth pu wpu cpu dpu bp sp row brow pul ssq'.split(' '));
+  const pool=g=>{
+    if(!pools[g]){
+      let s=(POOL[info.place][g][G]||POOL[info.place][g].a).split(' ');
+      if(low){s=s.filter(x=>!EXL[x][5]);if(g==='cardio')s=info.place==='gym'?['tjog','mar','wlk','pwk','smr']:['mar','wlk','pwk','smr']}
+      pools[g]=s;
+    }
+    return pools[g];
+  };
+  const rest=info.goal==='loss'?30:info.goal==='gain'?60:40;
+  const mk=id=>{
+    const e=EX(id);
+    if(e.k==='t')return{e,sets:3,work:id==='pl'?(low?20:info.goal==='gain'?45:30):40,rest:id==='pl'?30:20,time:1};
+    const sets=info.goal==='gain'&&!low&&info.mins>=45?4:3,reps=(info.goal==='loss'?15:info.goal==='gain'?(info.place==='gym'?9:12):12)-(low?2:0);
+    return{e,sets,reps,work:reps*(info.goal==='gain'?4:3),rest:compound.has(id)&&info.goal==='gain'?(info.mins<=30?45:60):rest};
+  };
+  const secs=(it,tr)=>it.sets*it.work+(it.sets-1)*it.rest+tr;
+  const target=(info.mins-10)*60,items=[];let sum=0,guard=0;
+  outer:while(guard++<30){
+    let added=false;
+    for(const g of tpl[2]){
+      const id=pool(g).find(x=>!used.has(x));if(!id)continue;
+      const it=mk(id),s=secs(it,30);
+      if(sum+s>target+45){if(items.length>=3)break outer;continue}
+      used.add(id);items.push(it);sum+=s;added=true;
+      if(sum>=target-20)break outer;
+    }
+    if(!added)break;
+  }
+  let pass=0;
+  while(sum<target-90&&pass++<3){items.forEach(it=>{if(it.sets<5){it.sets++}});sum=items.reduce((a,it)=>a+secs(it,30),0);if(sum>target+45){items.forEach(it=>{if(it.sets>3&&it.sets>(it.e.k==='t'?3:3))it.sets--});break}}
+  sum=items.reduce((a,it)=>a+secs(it,30),0);
+  const tr=Math.max(10,Math.min(90,30+Math.round((target-sum)/Math.max(1,items.length))));
+  const warm=['ac',low?'mar':'jj','sq','lu'].map(id=>({e:EX(id),time:1,work:60,warm:1}));
+  const cool=[['ff',90],['qs',90],['ac',60]].map(([id,w])=>({e:EX(id),time:1,work:w,warm:1}));
+  return{title:tpl[0],emoji:tpl[1],items,warm,cool,tr,low,mins:info.mins};
+}
+const doseTxt=it=>it.warm?`${it.work} sec`:it.time?`${it.sets} × ${it.work}s`:`${it.sets} × ${it.reps}`;
+const doseSub=it=>it.warm?'easy pace':`rest ${it.rest}s`;
+/* Optional real GIFs: put files in exercises/male/ and exercises/female/ named <exercise id>.gif (see exercises/README.txt).
+   If a file is missing the built-in animated figure is shown instead. */
+let FPG='male';
+function gifErr(i){if(!i.dataset.t){i.dataset.t='1';i.src='exercises/'+FPG+'/'+i.dataset.a+'.gif'}else i.remove()}
+function exRow(it){
+  const e=it.e;
+  return `<div class="exr"><div class="exfig">${fig(e.a,e.n)}<img class="exgif" alt="${esc(e.n)}" loading="lazy" decoding="async" src="exercises/${FPG}/${e.id}.gif" data-a="${e.a}" onerror="gifErr(this)" onload="this.style.opacity=1"></div><div class="exm"><div class="exh"><b>${esc(e.n)}</b><span class="exdose">${doseTxt(it)}</span></div><small>${esc(e.mu)} · ${doseSub(it)}</small><p>${esc(e.cue)}</p></div></div>`;
+}
+const fpDay=()=>ui.fpDay!=null?+ui.fpDay:dowMon(todayStr());
+function fpWeekDone(ws){return Array.from({length:7},(_,i)=>!!((S.fp.done||{})[addDays(ws,i)]))}
+function fpChip(ico,lab,val,sub,tc){
+  return `<button class="fpc" data-act="go" data-tab="settings" style="--tc:${tc}" aria-label="${lab}: ${esc(val)}. Open Settings to change"><span class="fpi">${ico}</span><small>${lab}</small><b>${esc(val)}</b>${sub?`<em>${esc(sub)}</em>`:'<em>&nbsp;</em>'}</button>`;
+}
+function viewFitnessPlan(){
+  const info=fpInfo();FPG=info.gender==='female'?'female':'male';const ws=weekStart(todayStr()),di=fpDay(),day=genDay(di,info),done=fpWeekDone(ws),date=addDays(ws,di),today=todayStr();
+  const goalLbl=(FP_GOALS.find(x=>x[0]===info.goal)||[])[1],genLbl=(FP_GEN.find(x=>x[0]===info.gender)||[0,'Not set'])[1];
+  const wk=PLANS[info.goal].map((t,i)=>({t,i,rest:!t[2]})),nWork=wk.filter(x=>!x.rest).length,nDone=wk.filter(x=>!x.rest&&done[x.i]).length;
+  const chips=`<div class="fpchips">${[
+    fpChip(FI[info.gender||'other'],'Gender',genLbl,'', info.gender==='female'?'#FF2D78':info.gender==='male'?'#0A84FF':'#AF52DE'),
+    fpChip(FI.height,'Height',info.height?info.height+' cm':'Not set','','#30B0C7'),
+    fpChip(FI.weight,'Weight',info.weight?info.weight+' kg':'Not set',info.bmi?'BMI '+info.bmi.toFixed(1)+' · '+bmiTxt(info.bmi):'','#FF9500'),
+    fpChip(FI.goal,'Goal',goalLbl,'','#34C759'),
+    fpChip(info.place==='gym'?FI.gym:FI.home,'Train at',info.place==='gym'?'Gym':'Home','','#6C4DF6'),
+    fpChip(FI.time,'Session',info.mins+' min','','#FF3B30')].join('')}</div>`;
+  const nudge=info.touched?'':`<div class="card fpnudge"><b>Make it yours</b><p>Add your gender, height, weight and goal in Settings and this plan will be built for you. Showing a general plan for now.</p><button class="btn" data-act="go" data-tab="settings" style="padding:12px 18px">Open Settings</button></div>`;
+  const lowNote=info.bmi&&info.bmi<18.5&&info.goal==='loss'?`<div class="hint" style="margin:0 2px 12px">Your BMI is on the low side. Consider “Stay fit” or “Weight gain” as your goal in Settings.</div>`:'';
+  const strip=`<div class="wkstrip">${wk.map(({t,i,rest})=>{const d=addDays(ws,i);return `<button class="wkd ${i===di?'on':''} ${d===today?'today':''}" data-act="fp-day" data-i="${i}" aria-label="${DOWN[i]}: ${t[0]}"><small>${DOWN[i]}</small><span>${done[i]&&!rest?'✅':t[1]}</span></button>`}).join('')}</div>`;
+  let body;
+  if(day.rest){
+    body=`<div class="card" style="margin-bottom:14px"><div class="row space"><h3 style="margin:0">😴 ${esc(day.title)}</h3><span class="cnt">Rest day</span></div>
+      <p style="margin:10px 0 0">Muscles grow and fat burns while you recover. Take today easy:</p>
+      <div class="hl">🚶 A relaxed 20 to 30 minute walk</div><div class="hl">💧 Drink plenty of water</div><div class="hl">🛌 Sleep 7 to 9 hours tonight</div><div class="hl">🥗 Eat well, protein at every meal</div></div>
+      <div class="card" style="margin-bottom:14px"><div class="row space"><h3 style="margin:0">Optional gentle stretching</h3><span class="cnt">5 min</span></div>${['ff','qs','ac'].map(id=>exRow({e:EX(id),time:1,work:60,warm:1})).join('')}</div>`;
+  }else{
+    const main=day.items.reduce((a,it)=>a+it.sets*it.work+(it.sets-1)*it.rest+day.tr,0);
+    const isDone=!!(S.fp.done||{})[date],future=date>today;
+    body=`<div class="card fpday" style="margin-bottom:14px"><div class="row space" style="align-items:flex-start"><div><h3 style="margin:0">${day.emoji} ${esc(day.title)}</h3><div class="hint" style="margin:4px 0 0">${DOWL[di]} · ${info.place==='gym'?'Gym':'Home'} · ${goalLbl}</div></div><span class="cnt">≈ ${day.mins} min</span></div>
+      <div class="fpstats"><div><b>${day.items.length}</b><small>exercises</small></div><div><b>${Math.round((main+600)/60)}</b><small>minutes</small></div><div><b>${day.items.reduce((a,it)=>a+it.sets,0)}</b><small>total sets</small></div></div>
+      <button class="btn ${isDone?'ghost':''} block" data-act="fp-done" data-d="${date}" ${future?'disabled':''} style="padding:14px">${isDone?'✅ Done · tap to undo':future?'Available on the day':'Mark workout done'}</button></div>
+      <div class="card" style="margin-bottom:14px"><div class="row space"><h3 style="margin:0">🔥 Warm-up</h3><span class="cnt">5 min</span></div>${day.warm.map(exRow).join('')}</div>
+      <div class="card" style="margin-bottom:14px"><div class="row space"><h3 style="margin:0">💪 Workout</h3><span class="cnt">${day.mins-10} min</span></div><div class="hint" style="margin:4px 0 0">Rest ${day.tr}s between exercises while you set up and sip water.</div>${day.items.map(exRow).join('')}</div>
+      <div class="card" style="margin-bottom:14px"><div class="row space"><h3 style="margin:0">🧘 Cool-down</h3><span class="cnt">5 min</span></div>${day.cool.map(exRow).join('')}</div>`;
+  }
+  const focus=info.gender==='female'?'Extra focus on glutes, legs and core.':info.gender==='male'?'Extra focus on chest, back, arms and core.':'A balanced mix for the whole body.';
+  return `<div class="title">Fitness plan</div><p class="sub">Your personal week, built from your Settings.</p>${pills('hTab',HAB_TABS,'fitness')}
+  ${nudge}${chips}${lowNote}
+  <div class="card" style="margin-bottom:14px"><div class="row space"><b>This week</b><b>${nDone} / ${nWork}</b></div><div class="bar ${nDone>=nWork?'ok':''}" style="margin-top:8px"><i style="width:${pctOf(nDone,nWork)}%"></i></div><div class="hint" style="margin:8px 0 0">${focus}</div></div>
+  ${strip}${body}
+  <div class="card" style="margin-bottom:14px"><h3>🧑‍🏫 Coach tip</h3><p style="margin:0">${FP_TIPS[info.goal]}</p></div>
+  <button class="btn ghost block" data-act="more-open" data-mod="fitness" style="padding:14px;margin-bottom:12px">🏃 Log weight, water and steps</button>
+  <div class="hint" style="margin:0 2px 8px">General fitness guidance, not medical advice. Stop if anything hurts, and check with a doctor first if you have a health condition.</div>`;
+}
+const DOWN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],DOWL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+ACT['fp-day']=b=>{ui.fpDay=+b.dataset.i;renderView()};
+ACT['fp-done']=b=>{
+  const d=b.dataset.d;if(!d||d>todayStr())return;
+  S.fp.done=S.fp.done&&typeof S.fp.done==='object'?S.fp.done:{};
+  if(S.fp.done[d])delete S.fp.done[d];else S.fp.done[d]=1;
+  save();renderView();toast(S.fp.done[d]?'Great work! 💪':'Unmarked');
+};
+/* settings → Fitness profile */
+function fpSettings(){
+  const f=S.fp||{},i=fpInfo();
+  const sel=(k,list,cur,blank)=>`<select class="inp" data-chg="fp" data-fp="${k}" aria-label="${k}">${blank?'<option value="">Not set</option>':''}${list.map(([v,t])=>`<option value="${v}" ${String(cur)===String(v)?'selected':''}>${t}</option>`).join('')}</select>`;
+  return `<div class="group"><h4>Fitness profile</h4><div class="card">
+    <div class="hint" style="margin:0 0 6px">Used by the Fitness tab to build your weekly workout plan.</div>
+    <div class="item"><span>Gender</span>${sel('gender',FP_GEN,i.gender,1)}</div>
+    <div class="item"><span>Height (cm)</span><input class="inp" type="number" inputmode="decimal" min="100" max="230" step="1" data-chg="fp" data-fp="height" value="${f.height||''}" placeholder="e.g. 172"></div>
+    <div class="item"><span>Weight (kg)</span><input class="inp" type="number" inputmode="decimal" min="25" max="300" step="0.1" data-chg="fp" data-fp="weight" value="${f.weight||''}" placeholder="${i.weight&&!f.weight?i.weight+' (from your log)':'e.g. 70'}"></div>
+    <div class="item"><span>Goal</span>${sel('goal',FP_GOALS,i.goal)}</div>
+    <div class="item"><span>Train at</span>${sel('place',FP_PLACE,i.place)}</div>
+    <div class="item"><span>Session length</span>${sel('mins',FP_MINS.map(m=>[m,m+' minutes']),i.mins)}</div>
+  </div></div>`;
+}
+CHG.fp=el=>{
+  const k=el.dataset.fp;if(!k)return;
+  S.fp=S.fp&&typeof S.fp==='object'?S.fp:{};
+  if(k==='height'||k==='weight'){
+    const v=parseFloat(el.value),lim=k==='height'?[100,230]:[25,300];
+    if(v>=lim[0]&&v<=lim[1])S.fp[k]=Math.round(v*10)/10;else{delete S.fp[k];if(el.value){toast('Enter a realistic '+k);el.value=''}}
+  }else if(k==='mins')S.fp.mins=+el.value;
+  else if(el.value)S.fp[k]=el.value;else delete S.fp[k];
+  save();toast('Saved ✓');
+};
+
 /* ================= More · fitness, goals, important dates, checklist ================= */
 const MODS=[
   ['fitness','🏃','Fitness log','Weight, water and steps'],
   ['goals','🎯','Goals','Break big goals into steps'],
   ['dates','📅','Important dates','Birthdays, renewals, expiries'],
-  ['todo','✅','Checklist','To-do and shopping lists']
+  ['todo','✅','Checklist','To-do and shopping lists'],
+  ['journal','📓','Journal','One line and a mood a day']
 ];
 function modCount(k){
   const t=todayStr();
@@ -1770,13 +2131,14 @@ function modCount(k){
   if(k==='goals'){const a=S.goals.filter(g=>!(g.steps||[]).length||(g.steps||[]).some(s=>!s.done)).length;return a?`${a} active`:'No goals yet'}
   if(k==='dates'){const n=S.dates.filter(x=>{const d=daysTo(nextOcc(x));return d>=0&&d<=30}).length;return n?`${n} in the next 30 days`:'Nothing soon'}
   if(k==='todo'){const n=S.todo.filter(x=>!x.done).length;return n?`${n} open`:'All clear'}
+  if(k==='journal'){const m=(S.journal[t]||{}).m;return m?`Today: ${MOODS[m-1]} ${MOOD_TXT[m-1]}`:'How was today?'}
   return '';
 }
 function viewMore(){
   const m=ui.mod;
   if(!m)return `<button class="backbtn" data-act="go" data-tab="dashboard">${ICON.left} Back</button><div class="title">More tools</div><p class="sub">Extra helpers for everyday life.</p>
   <div class="card" style="padding:0;overflow:hidden">${MODS.map(([k,e,t,s])=>`<button class="mrow" data-act="more-open" data-mod="${k}"><span class="ab-ico mico">${e}</span><span class="lmain"><b>${t}</b><small>${modCount(k)}</small></span><span class="ab-go">${ICON.right}</span></button>`).join('')}</div>`;
-  const body={fitness:viewFit,goals:viewGoals,dates:viewDates,todo:viewTodo}[m]();
+  const body={fitness:viewFit,goals:viewGoals,dates:viewDates,todo:viewTodo,journal:()=>`<div class="title">Journal</div><p class="sub">One line and a mood for the day.</p>${viewJournal()}`}[m]();
   return `<button class="backbtn" data-act="more-hub">${ICON.left} More tools</button>${body}`;
 }
 ACT['more-open']=b=>{ui.mod=b.dataset.mod;go('more')};
@@ -2193,7 +2555,7 @@ function searchAll(q){
   add('Goals',S.goals.filter(g=>has(g.name)||(g.steps||[]).some(s=>has(s.t))).map(g=>({e:'🏁',t:g.name,s:`${gPct(g)}% done`,go:{tab:'more',mod:'goals'}})));
   add('Important dates',S.dates.filter(x=>has(x.name)).map(x=>({e:dkEmoji(x.kind),t:x.name,s:fmtD(nextOcc(x)),go:{tab:'more',mod:'dates'}})));
   add('Checklist',S.todo.filter(x=>has(x.t)).map(x=>({e:x.done?'☑️':'⬜',t:x.t,s:x.list==='shop'?'Shopping':'To-do',go:{tab:'more',mod:'todo',tList:x.list||'todo'}})));
-  add('Journal',Object.keys(S.journal).sort().reverse().filter(d=>has(S.journal[d].t)).map(d=>({e:S.journal[d].m?MOODS[S.journal[d].m-1]:'📝',t:S.journal[d].t,s:fmtD(d),go:{tab:'habits',hTab:'journal',jDate:d}})));
+  add('Journal',Object.keys(S.journal).sort().reverse().filter(d=>has(S.journal[d].t)).map(d=>({e:S.journal[d].m?MOODS[S.journal[d].m-1]:'📝',t:S.journal[d].t,s:fmtD(d),go:{tab:'more',mod:'journal',jDate:d}})));
   return G;
 }
 let searchRes=[];
